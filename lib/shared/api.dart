@@ -23,6 +23,7 @@ class Api {
 
   static Future<Response> post(String url, {dynamic data}) async {
     try {
+      print("URL: $url");
       final response = await _dio.post(url, data: data ,options: Options(
         headers: {'Authorization': 'Bearer $accessToken'},
       ));

@@ -1,9 +1,9 @@
-String buildGetListOfStoresQuery(double lat, double lng, String country)=> """
+String buildGetListOfStoresQuery(double lat, double lng, int distance)=> """
    query{
 
     listBusinessesByLatitudeAndLongitude(latitude: $lat,
 
-       longitude: $lng, country: "$country"){
+       longitude: $lng, distance: $distance){
 
           businessName,
 

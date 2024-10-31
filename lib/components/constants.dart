@@ -290,6 +290,8 @@ const String vehicleStatus = "Status";
 
 const String drivingMethod = "Driving Method";
 
+const String dashBoard = "Dashboard";
+
 const String carColor = "color";
 
 enum CarMethod {
@@ -326,7 +328,7 @@ const String oldPassword = "Old Password";
 
 const String newPassword = "New Password";
 
-const String amazonImagePath = 'https://image-fazeal-bucket-qa.s3.amazonaws.com';
+const String amazonImagePath = 'https://smajik.s3.amazonaws.com';
 
 const String licenseImage= "License Image";
 

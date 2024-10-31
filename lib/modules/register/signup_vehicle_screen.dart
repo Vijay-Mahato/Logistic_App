@@ -64,436 +64,459 @@ class SignUpVehicleScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(ten)),
                         child: Padding(
                           padding: EdgeInsets.all(isMobileDevice ? ten : sixteen),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Image.asset(
-                                'assets/signUpAssets/fazeal_logistic_logo.png',
-                                width: isMobileDevice ? twoHundred : threeHundred,
-                                height:
-                                isMobileDevice ? oneHundred : oneHundredFifty,
-                                fit: BoxFit.contain,
-                              ),
-                              Text(
-                                addYourVehicle.tr,
-                                style: TextStyle(
-                                  color: primaryLogisticColor,
-                                  fontSize: isMobileDevice ? twenty : twentyFour,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Image.asset(
+                                  'assets/signUpAssets/fazeal_logistic_logo.png',
+                                  width: isMobileDevice ? twoHundred : threeHundred,
+                                  height:
+                                  isMobileDevice ? oneHundred : oneHundredFifty,
+                                  fit: BoxFit.contain,
                                 ),
-                              ),
-                              SizedBox(
-                                height: isMobileDevice ? ten : sixteen,
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(
-                                    isMobileDevice ? ten : fourteen),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:
-                                  BorderRadiusDirectional.circular(fifteen),
-                                  border: Border.all(
-                                    color: primaryLogisticColor.withOpacity(0.5),
-                                    width: one,
+                                Text(
+                                  addYourVehicle.tr,
+                                  style: TextStyle(
+                                    color: primaryLogisticColor,
+                                    fontSize: isMobileDevice ? twenty : twentyFour,
                                   ),
                                 ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Image.asset(
-                                          'assets/signUpAssets/rocket-02.png',
-                                          width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          height: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          fit: BoxFit.contain,
-                                          color: primaryLogisticColor
-                                              .withOpacity(0.5),
-                                        ),
-                                        SizedBox(
-                                          width: isMobileDevice ? ten : sixteen,
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            drivingMethod.tr,
-                                            style: TextStyle(
-                                              color: Colors.grey[400],
-                                              fontSize: isMobileDevice
-                                                  ? sixteen
-                                                  : twentyFour,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: isMobileDevice ? ten : sixteen,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Radio(
-                                          value: CarMethod.CAR.name,
-                                          groupValue: cubit.drivingMethod,
-                                          onChanged: (v) {
-                                            cubit.changeDrivingMethod(v.toString());
-                                          },
-                                          materialTapTargetSize:
-                                          MaterialTapTargetSize.shrinkWrap,
-                                          fillColor: MaterialStatePropertyAll(
-                                              primaryLogisticColor),
-                                        ),
-                                        SizedBox(
-                                          height: isMobileDevice ? five : ten,
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            CarMethod.CAR.name.capitalizeFirst!.tr,
-                                            style: TextStyle(
-                                              color: Colors.grey[400],
-                                              fontSize: isMobileDevice
-                                                  ? sixteen
-                                                  : twentyFour,
-                                            ),
-                                          ),
-                                        ),
-                                        Radio(
-                                          value: CarMethod.BICYCLE.name,
-                                          groupValue: cubit.drivingMethod,
-                                          onChanged: (v) {
-                                            cubit.changeDrivingMethod(v.toString());
-                                          },
-                                          materialTapTargetSize:
-                                          MaterialTapTargetSize.shrinkWrap,
-                                          fillColor: MaterialStatePropertyAll(
-                                              primaryLogisticColor),
-                                        ),
-                                        SizedBox(
-                                          height: isMobileDevice ? five : ten,
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            CarMethod.BICYCLE.name.capitalizeFirst!.tr,
-                                            style: TextStyle(
-                                              color: Colors.grey[400],
-                                              fontSize: isMobileDevice
-                                                  ? sixteen
-                                                  : twentyFour,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Radio(
-                                          value: CarMethod.ON_FOOT.name,
-                                          groupValue: cubit.drivingMethod,
-                                          onChanged: (v) {
-                                            cubit.changeDrivingMethod(v.toString());
-                                          },
-                                          materialTapTargetSize:
-                                          MaterialTapTargetSize.shrinkWrap,
-                                          fillColor: MaterialStatePropertyAll(
-                                              primaryLogisticColor),
-                                        ),
-                                        SizedBox(
-                                          height: isMobileDevice ? five : ten,
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            CarMethod.ON_FOOT.name.replaceAll('_', ' ').capitalizeFirst!.tr,
-                                            style: TextStyle(
-                                              color: Colors.grey[400],
-                                              fontSize: isMobileDevice
-                                                  ? sixteen
-                                                  : twentyFour,
-                                            ),
-                                          ),
-                                        ),
-                                        Radio(
-                                          value: CarMethod.VAN.name,
-                                          groupValue: cubit.drivingMethod,
-                                          onChanged: (v) {
-                                            cubit.changeDrivingMethod(v.toString());
-                                          },
-                                          materialTapTargetSize:
-                                          MaterialTapTargetSize.shrinkWrap,
-                                          fillColor: MaterialStatePropertyAll(
-                                              primaryLogisticColor),
-                                        ),
-                                        SizedBox(
-                                          height: isMobileDevice ? five : ten,
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            CarMethod.VAN.name.capitalizeFirst!.tr,
-                                            style: TextStyle(
-                                              color: Colors.grey[400],
-                                              fontSize: isMobileDevice
-                                                  ? sixteen
-                                                  : twentyFour,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                SizedBox(
+                                  height: isMobileDevice ? ten : sixteen,
                                 ),
-                              ),
-                              if(cubit.drivingMethod!=CarMethod.ON_FOOT.name)
-                                Column(
-                                  children: [
-                                    SizedBox(
-                                      height: isMobileDevice ? ten : sixteen,
+                                Container(
+                                  padding: EdgeInsets.all(
+                                      isMobileDevice ? ten : fourteen),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius:
+                                    BorderRadiusDirectional.circular(fifteen),
+                                    border: Border.all(
+                                      color: primaryLogisticColor.withOpacity(0.5),
+                                      width: one,
                                     ),
-                                    logisticFormField(
-                                      controller: brandController,
-                                      isMobileDevice: isMobileDevice,
-                                      labelText: brand.tr,
-                                      validator: (text){
-                                        if(text!.isEmpty){
-                                          return "Required".tr;
-                                        }
-                                        return null;
-                                      },
-                                      prefixIcon: Padding(
-                                        padding: EdgeInsets.all(ten),
-                                        child: Image.asset(
-                                          'assets/signUpAssets/car-02.png',
-                                          width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          height: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          fit: BoxFit.contain,
-                                          color: primaryLogisticColor
-                                              .withOpacity(0.5),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Image.asset(
+                                            'assets/signUpAssets/rocket-02.png',
+                                            width: isMobileDevice ? twentyTwo : thirtyTwo,
+                                            height: isMobileDevice ? twentyTwo : thirtyTwo,
+                                            fit: BoxFit.contain,
+                                            color: primaryLogisticColor
+                                                .withOpacity(0.5),
+                                          ),
+                                          SizedBox(
+                                            width: isMobileDevice ? ten : sixteen,
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              drivingMethod.tr,
+                                              style: TextStyle(
+                                                color: Colors.grey[400],
+                                                fontSize: isMobileDevice
+                                                    ? sixteen
+                                                    : twentyFour,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: isMobileDevice ? ten : sixteen,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Radio(
+                                            value: CarMethod.CAR.name,
+                                            groupValue: cubit.drivingMethod,
+                                            onChanged: (v) {
+                                              cubit.changeDrivingMethod(v.toString());
+                                            },
+                                            materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                            fillColor: MaterialStatePropertyAll(
+                                                primaryLogisticColor),
+                                          ),
+                                          SizedBox(
+                                            height: isMobileDevice ? five : ten,
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              CarMethod.CAR.name.capitalizeFirst!.tr,
+                                              style: TextStyle(
+                                                color: Colors.grey[400],
+                                                fontSize: isMobileDevice
+                                                    ? sixteen
+                                                    : twentyFour,
+                                              ),
+                                            ),
+                                          ),
+                                          Radio(
+                                            value: CarMethod.BICYCLE.name,
+                                            groupValue: cubit.drivingMethod,
+                                            onChanged: (v) {
+                                              cubit.changeDrivingMethod(v.toString());
+                                            },
+                                            materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                            fillColor: MaterialStatePropertyAll(
+                                                primaryLogisticColor),
+                                          ),
+                                          SizedBox(
+                                            height: isMobileDevice ? five : ten,
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              CarMethod.BICYCLE.name.capitalizeFirst!.tr,
+                                              style: TextStyle(
+                                                color: Colors.grey[400],
+                                                fontSize: isMobileDevice
+                                                    ? sixteen
+                                                    : twentyFour,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Radio(
+                                            value: CarMethod.ON_FOOT.name,
+                                            groupValue: cubit.drivingMethod,
+                                            onChanged: (v) {
+                                              cubit.changeDrivingMethod(v.toString());
+                                            },
+                                            materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                            fillColor: MaterialStatePropertyAll(
+                                                primaryLogisticColor),
+                                          ),
+                                          SizedBox(
+                                            height: isMobileDevice ? five : ten,
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              CarMethod.ON_FOOT.name.replaceAll('_', ' ').capitalizeFirst!.tr,
+                                              style: TextStyle(
+                                                color: Colors.grey[400],
+                                                fontSize: isMobileDevice
+                                                    ? sixteen
+                                                    : twentyFour,
+                                              ),
+                                            ),
+                                          ),
+                                          Radio(
+                                            value: CarMethod.VAN.name,
+                                            groupValue: cubit.drivingMethod,
+                                            onChanged: (v) {
+                                              cubit.changeDrivingMethod(v.toString());
+                                            },
+                                            materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                            fillColor: MaterialStatePropertyAll(
+                                                primaryLogisticColor),
+                                          ),
+                                          SizedBox(
+                                            height: isMobileDevice ? five : ten,
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              CarMethod.VAN.name.capitalizeFirst!.tr,
+                                              style: TextStyle(
+                                                color: Colors.grey[400],
+                                                fontSize: isMobileDevice
+                                                    ? sixteen
+                                                    : twentyFour,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                if(cubit.drivingMethod!=CarMethod.ON_FOOT.name)
+                                  Column(
+                                    children: [
+                                      SizedBox(
+                                        height: isMobileDevice ? ten : sixteen,
+                                      ),
+                                      logisticFormField(
+                                        controller: brandController,
+                                        isMobileDevice: isMobileDevice,
+                                        labelText: brand.tr,
+                                        validator: (text){
+                                          if(text!.isEmpty){
+                                            return "Required".tr;
+                                          }
+                                          return null;
+                                        },
+                                        prefixIcon: Padding(
+                                          padding: EdgeInsets.all(ten),
+                                          child: Image.asset(
+                                            'assets/signUpAssets/car-02.png',
+                                            width: isMobileDevice ? twentyTwo : thirtyTwo,
+                                            height: isMobileDevice ? twentyTwo : thirtyTwo,
+                                            fit: BoxFit.contain,
+                                            color: primaryLogisticColor
+                                                .withOpacity(0.5),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: isMobileDevice ? ten : sixteen,
-                                    ),
-                                    logisticFormField(
-                                      controller: modelNameController,
-                                      isMobileDevice: isMobileDevice,
-                                      labelText: modelName.tr,
-                                      validator: (text){
-                                        if(text!.isEmpty){
-                                          return "Required".tr;
-                                        }
-                                        return null;
-                                      },
-                                      prefixIcon: Padding(
-                                        padding: EdgeInsets.all(ten),
-                                        child: Image.asset(
-                                          'assets/signUpAssets/award-01.png',
-                                          width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          height: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          fit: BoxFit.contain,
-                                          color: primaryLogisticColor
-                                              .withOpacity(0.5),
+                                      SizedBox(
+                                        height: isMobileDevice ? ten : sixteen,
+                                      ),
+                                      logisticFormField(
+                                        controller: modelNameController,
+                                        isMobileDevice: isMobileDevice,
+                                        labelText: modelName.tr,
+                                        validator: (text){
+                                          if(text!.isEmpty){
+                                            return "Required".tr;
+                                          }
+                                          return null;
+                                        },
+                                        prefixIcon: Padding(
+                                          padding: EdgeInsets.all(ten),
+                                          child: Image.asset(
+                                            'assets/signUpAssets/award-01.png',
+                                            width: isMobileDevice ? twentyTwo : thirtyTwo,
+                                            height: isMobileDevice ? twentyTwo : thirtyTwo,
+                                            fit: BoxFit.contain,
+                                            color: primaryLogisticColor
+                                                .withOpacity(0.5),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: isMobileDevice ? ten : sixteen,
-                                    ),
-                                    logisticFormField(
-                                      controller: vehicleTypeController,
-                                      isMobileDevice: isMobileDevice,
-                                      labelText: vehicleType.tr,
-                                      validator: (text){
-                                        if(text!.isEmpty){
-                                          return "Required".tr;
-                                        }
-                                        return null;
-                                      },
-                                      prefixIcon: Padding(
-                                        padding: EdgeInsets.all(ten),
-                                        child: Image.asset(
-                                          'assets/signUpAssets/bus.png',
-                                          width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          height: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          fit: BoxFit.contain,
-                                          color: primaryLogisticColor.withOpacity(0.5),
+                                      SizedBox(
+                                        height: isMobileDevice ? ten : sixteen,
+                                      ),
+                                      logisticFormField(
+                                        controller: vehicleTypeController,
+                                        isMobileDevice: isMobileDevice,
+                                        labelText: vehicleType.tr,
+                                        validator: (text){
+                                          if(text!.isEmpty){
+                                            return "Required".tr;
+                                          }
+                                          return null;
+                                        },
+                                        prefixIcon: Padding(
+                                          padding: EdgeInsets.all(ten),
+                                          child: Image.asset(
+                                            'assets/signUpAssets/bus.png',
+                                            width: isMobileDevice ? twentyTwo : thirtyTwo,
+                                            height: isMobileDevice ? twentyTwo : thirtyTwo,
+                                            fit: BoxFit.contain,
+                                            color: primaryLogisticColor.withOpacity(0.5),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: isMobileDevice ? ten : sixteen,
-                                    ),
-                                    logisticFormField(
-                                      controller: capacityController,
-                                      isMobileDevice: isMobileDevice,
-                                      labelText: capacity.tr,
-                                      validator: (text){
-                                        if(text!.isEmpty){
-                                          return "Required".tr;
-                                        }
-                                        return null;
-                                      },
-                                      prefixIcon: Padding(
-                                        padding: EdgeInsets.all(ten),
-                                        child: Image.asset(
-                                          'assets/signUpAssets/route.png',
-                                          width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          height: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          fit: BoxFit.contain,
-                                          color: primaryLogisticColor.withOpacity(0.5),
+                                      SizedBox(
+                                        height: isMobileDevice ? ten : sixteen,
+                                      ),
+                                      logisticFormField(
+                                        controller: capacityController,
+                                        isMobileDevice: isMobileDevice,
+                                        labelText: capacity.tr,
+                                        validator: (text){
+                                          if(text!.isEmpty){
+                                            return "Required".tr;
+                                          }
+                                          return null;
+                                        },
+                                        prefixIcon: Padding(
+                                          padding: EdgeInsets.all(ten),
+                                          child: Image.asset(
+                                            'assets/signUpAssets/route.png',
+                                            width: isMobileDevice ? twentyTwo : thirtyTwo,
+                                            height: isMobileDevice ? twentyTwo : thirtyTwo,
+                                            fit: BoxFit.contain,
+                                            color: primaryLogisticColor.withOpacity(0.5),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: isMobileDevice ? ten : sixteen,
-                                    ),
-                                    logisticFormField(
-                                      controller: fuelTypeController,
-                                      isMobileDevice: isMobileDevice,
-                                      labelText: fuelType.tr,
-                                      validator: (text){
-                                        if(text!.isEmpty){
-                                          return "Required".tr;
-                                        }
-                                        return null;
-                                      },
-                                      prefixIcon: Padding(
-                                        padding: EdgeInsets.all(ten),
-                                        child: Icon(
-                                          Icons.local_gas_station,
-                                          size: isMobileDevice ? twentyFour : thirtyFour,
-                                          color: primaryLogisticColor.withOpacity(0.5),
+                                      SizedBox(
+                                        height: isMobileDevice ? ten : sixteen,
+                                      ),
+                                      logisticFormField(
+                                        controller: fuelTypeController,
+                                        isMobileDevice: isMobileDevice,
+                                        labelText: fuelType.tr,
+                                        validator: (text){
+                                          if(text!.isEmpty){
+                                            return "Required".tr;
+                                          }
+                                          return null;
+                                        },
+                                        prefixIcon: Padding(
+                                          padding: EdgeInsets.all(ten),
+                                          child: Icon(
+                                            Icons.local_gas_station,
+                                            size: isMobileDevice ? twentyFour : thirtyFour,
+                                            color: primaryLogisticColor.withOpacity(0.5),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: isMobileDevice ? ten : sixteen,
-                                    ),
-                                    logisticFormField(
-                                      controller: mileAgeController,
-                                      isMobileDevice: isMobileDevice,
-                                      labelText: mileAge.tr,
-                                      validator: (text){
-                                        if(text!.isEmpty){
-                                          return "Required".tr;
-                                        }
-                                        return null;
-                                      },
-                                      prefixIcon: Padding(
-                                        padding: EdgeInsets.all(ten),
-                                        child: Image.asset(
-                                          'assets/signUpAssets/speedometer-04.png',
-                                          width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          height: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          fit: BoxFit.contain,
-                                          color: primaryLogisticColor.withOpacity(0.5),
+                                      SizedBox(
+                                        height: isMobileDevice ? ten : sixteen,
+                                      ),
+                                      logisticFormField(
+                                        controller: mileAgeController,
+                                        isMobileDevice: isMobileDevice,
+                                        labelText: mileAge.tr,
+                                        validator: (text){
+                                          if(text!.isEmpty){
+                                            return "Required".tr;
+                                          }
+                                          return null;
+                                        },
+                                        prefixIcon: Padding(
+                                          padding: EdgeInsets.all(ten),
+                                          child: Image.asset(
+                                            'assets/signUpAssets/speedometer-04.png',
+                                            width: isMobileDevice ? twentyTwo : thirtyTwo,
+                                            height: isMobileDevice ? twentyTwo : thirtyTwo,
+                                            fit: BoxFit.contain,
+                                            color: primaryLogisticColor.withOpacity(0.5),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: isMobileDevice ? ten : sixteen,
-                                    ),
-                                    logisticFormField(
-                                      controller: licensePlateNumberController,
-                                      isMobileDevice: isMobileDevice,
-                                      labelText: licensePlateNumber.tr,
-                                      validator: (text){
-                                        if(text!.isEmpty){
-                                          return "Required".tr;
-                                        }
-                                        return null;
-                                      },
-                                      prefixIcon: Padding(
-                                        padding: EdgeInsets.all(ten),
-                                        child: Image.asset(
-                                          'assets/signUpAssets/passport.png',
-                                          width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          height: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          fit: BoxFit.contain,
-                                          color: primaryLogisticColor.withOpacity(0.5),
+                                      SizedBox(
+                                        height: isMobileDevice ? ten : sixteen,
+                                      ),
+                                      logisticFormField(
+                                        controller: licensePlateNumberController,
+                                        isMobileDevice: isMobileDevice,
+                                        labelText: licensePlateNumber.tr,
+                                        validator: (text){
+                                          if(text!.isEmpty){
+                                            return "Required".tr;
+                                          }
+                                          return null;
+                                        },
+                                        prefixIcon: Padding(
+                                          padding: EdgeInsets.all(ten),
+                                          child: Image.asset(
+                                            'assets/signUpAssets/passport.png',
+                                            width: isMobileDevice ? twentyTwo : thirtyTwo,
+                                            height: isMobileDevice ? twentyTwo : thirtyTwo,
+                                            fit: BoxFit.contain,
+                                            color: primaryLogisticColor.withOpacity(0.5),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: isMobileDevice ? ten : sixteen,
-                                    ),
-                                    logisticFormField(
-                                      controller: yearController,
-                                      isMobileDevice: isMobileDevice,
-                                      labelText: year.tr,
-                                      validator: (text){
-                                        if(text!.isEmpty){
-                                          return "Required".tr;
-                                        }
-                                        return null;
-                                      },
-                                      prefixIcon: Padding(
-                                        padding: EdgeInsets.all(ten),
-                                        child: Image.asset(
-                                          'assets/signUpAssets/calendar.png',
-                                          width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          height: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          fit: BoxFit.contain,
-                                          color: primaryLogisticColor.withOpacity(0.5),
+                                      SizedBox(
+                                        height: isMobileDevice ? ten : sixteen,
+                                      ),
+                                      logisticFormField(
+                                        controller: yearController,
+                                        isMobileDevice: isMobileDevice,
+                                        labelText: year.tr,
+                                        validator: (text){
+                                          if(text!.isEmpty){
+                                            return "Required".tr;
+                                          }
+                                          return null;
+                                        },
+                                        prefixIcon: Padding(
+                                          padding: EdgeInsets.all(ten),
+                                          child: Image.asset(
+                                            'assets/signUpAssets/calendar.png',
+                                            width: isMobileDevice ? twentyTwo : thirtyTwo,
+                                            height: isMobileDevice ? twentyTwo : thirtyTwo,
+                                            fit: BoxFit.contain,
+                                            color: primaryLogisticColor.withOpacity(0.5),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: isMobileDevice ? ten : sixteen,
-                                    ),
-                                    logisticFormField(
-                                      controller: statusController,
-                                      isMobileDevice: isMobileDevice,
-                                      labelText: vehicleStatus.tr,
-                                      validator: (text){
-                                        if(text!.isEmpty){
-                                          return "Required".tr;
-                                        }
-                                        return null;
-                                      },
-                                      prefixIcon: Padding(
-                                        padding: EdgeInsets.all(ten),
-                                        child: Image.asset(
-                                          'assets/signUpAssets/message-check-circle.png',
-                                          width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          height: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          fit: BoxFit.contain,
-                                          color: primaryLogisticColor.withOpacity(0.5),
+                                      SizedBox(
+                                        height: isMobileDevice ? ten : sixteen,
+                                      ),
+                                      logisticFormField(
+                                        controller: statusController,
+                                        isMobileDevice: isMobileDevice,
+                                        labelText: vehicleStatus.tr,
+                                        validator: (text){
+                                          if(text!.isEmpty){
+                                            return "Required".tr;
+                                          }
+                                          return null;
+                                        },
+                                        prefixIcon: Padding(
+                                          padding: EdgeInsets.all(ten),
+                                          child: Image.asset(
+                                            'assets/signUpAssets/message-check-circle.png',
+                                            width: isMobileDevice ? twentyTwo : thirtyTwo,
+                                            height: isMobileDevice ? twentyTwo : thirtyTwo,
+                                            fit: BoxFit.contain,
+                                            color: primaryLogisticColor.withOpacity(0.5),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: isMobileDevice ? ten : sixteen,
-                                    ),
-                                    logisticFormField(
-                                      controller: colorController,
-                                      isMobileDevice: isMobileDevice,
-                                      labelText: carColor.tr,
-                                      validator: (text){
-                                        if(text!.isEmpty){
-                                          return "Required".tr;
-                                        }
-                                        return null;
-                                      },
-                                      prefixIcon: Padding(
-                                        padding: EdgeInsets.all(ten),
-                                        child: Image.asset(
-                                          'assets/signUpAssets/colors.png',
-                                          width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          height: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          fit: BoxFit.contain,
-                                          color: primaryLogisticColor.withOpacity(0.5),
+                                      SizedBox(
+                                        height: isMobileDevice ? ten : sixteen,
+                                      ),
+                                      logisticFormField(
+                                        controller: colorController,
+                                        isMobileDevice: isMobileDevice,
+                                        labelText: carColor.tr,
+                                        validator: (text){
+                                          if(text!.isEmpty){
+                                            return "Required".tr;
+                                          }
+                                          return null;
+                                        },
+                                        prefixIcon: Padding(
+                                          padding: EdgeInsets.all(ten),
+                                          child: Image.asset(
+                                            'assets/signUpAssets/colors.png',
+                                            width: isMobileDevice ? twentyTwo : thirtyTwo,
+                                            height: isMobileDevice ? twentyTwo : thirtyTwo,
+                                            fit: BoxFit.contain,
+                                            color: primaryLogisticColor.withOpacity(0.5),
+                                          ),
                                         ),
                                       ),
-                                    ),
 
-                                  ],
+                                    ],
+                                  ),
+                                SizedBox(
+                                  height: isMobileDevice ? ten : sixteen,
                                 ),
-                              SizedBox(
-                                height: isMobileDevice ? ten : sixteen,
-                              ),
-                              state is LogisticsSignupLoadingState? Center(child: AdaptiveIndicator(os: getOS()),) : logisticButton(
-                                isMobileDevice: isMobileDevice,
-                                onPressed: () async{
-                                  if(cubit.drivingMethod!=CarMethod.ON_FOOT.name) {
-                                    if (signUpVehicleKey.currentState!
-                                        .validate()) {
+                                state is LogisticsSignupLoadingState? Center(child: AdaptiveIndicator(os: getOS()),) : logisticButton(
+                                  isMobileDevice: isMobileDevice,
+                                  onPressed: () async{
+                                    if(cubit.drivingMethod!=CarMethod.ON_FOOT.name) {
+                                      if (signUpVehicleKey.currentState!
+                                          .validate()) {
+                                        await cubit.registerVehicle(
+                                            modelName: modelNameController.text,
+                                            year: yearController.text,
+                                            status: statusController.text,
+                                            color: colorController.text,
+                                            mileAge: mileAgeController.text,
+                                            licensePlateNumber: licensePlateNumberController
+                                                .text,
+                                            fuelType: fuelTypeController.text,
+                                            drivingMethod: cubit.drivingMethod,
+                                            capacity: capacityController.text,
+                                            brand: brandController.text,
+                                            type: vehicleTypeController.text)
+                                            .then((value) {
+                                          if (value) {
+                                            navigatePushAndRemoveUntil(context,
+                                                SignUpUploadVehicleImageScreen(
+                                                  vehicleId: myVehicleId!,));
+                                          } else {}
+                                        });
+                                      }
+                                    }else{
                                       await cubit.registerVehicle(
                                           modelName: modelNameController.text,
                                           year: yearController.text,
@@ -506,73 +529,52 @@ class SignUpVehicleScreen extends StatelessWidget {
                                           drivingMethod: cubit.drivingMethod,
                                           capacity: capacityController.text,
                                           brand: brandController.text,
-                                          type: vehicleTypeController.text)
-                                          .then((value) {
-                                        if (value) {
-                                          navigatePushAndRemoveUntil(context,
-                                              SignUpUploadVehicleImageScreen(
-                                                vehicleId: myVehicleId!,));
-                                        } else {}
+                                          type: vehicleTypeController.text).then((value) {
+                                         if(value){
+                                           cubit.vehicleImage=null;
+                                           navigateTo(context, ConfirmationScreen());
+                                         }
                                       });
                                     }
-                                  }else{
-                                    await cubit.registerVehicle(
-                                        modelName: modelNameController.text,
-                                        year: yearController.text,
-                                        status: statusController.text,
-                                        color: colorController.text,
-                                        mileAge: mileAgeController.text,
-                                        licensePlateNumber: licensePlateNumberController
-                                            .text,
-                                        fuelType: fuelTypeController.text,
-                                        drivingMethod: cubit.drivingMethod,
-                                        capacity: capacityController.text,
-                                        brand: brandController.text,
-                                        type: vehicleTypeController.text).then((value) {
-                                       if(value){
-                                         cubit.vehicleImage=null;
-                                         navigateTo(context, ConfirmationScreen());
-                                       }
-                                    });
-                                  }
-                                },
-                                buttonTitle: cubit.drivingMethod!=CarMethod.ON_FOOT.name?next.tr:add.tr,
-                              ),
-                              SizedBox(
-                                height: isMobileDevice ? ten : sixteen,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    ifYouAlreadyHaveAccount.tr,
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize:
-                                      isMobileDevice ? fourteen : twentyFour,
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      navigatePushAndRemoveUntil(
-                                          context, LoginScreen());
-                                    },
-                                    child: Text(
-                                      login.tr,
+                                  },
+                                  buttonTitle: cubit.drivingMethod!=CarMethod.ON_FOOT.name?next.tr:add.tr,
+                                ),
+                                SizedBox(
+                                  height: isMobileDevice ? ten : sixteen,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      ifYouAlreadyHaveAccount.tr,
                                       style: TextStyle(
-                                        color: primaryLogisticColor,
-                                        fontSize: isMobileDevice
-                                            ? fourteen
-                                            : twentyFour,
+                                        color: Colors.grey,
+                                        fontSize:
+                                        isMobileDevice ? fourteen : twentyFour,
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: isMobileDevice ? ten : twenty,
-                              ),
-                            ],
+                                    InkWell(
+                                      onTap: () {
+                                        navigatePushAndRemoveUntil(
+                                            context, LoginScreen());
+                                      },
+                                      child: Text(
+                                        login.tr,
+                                        style: TextStyle(
+                                          color: primaryLogisticColor,
+                                          fontSize: isMobileDevice
+                                              ? fourteen
+                                              : twentyFour,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: isMobileDevice ? ten : twenty,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

@@ -18,6 +18,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../components/constants_empty.dart';
 import '../modules/Login/login_screen.dart';
+import '../modules/layout_screen/delivery_dashboard.dart';
 import '../modules/layout_screen/driving_method_Info_screen.dart';
 import '../modules/layout_screen/driving_method_screen.dart';
 import '../modules/layout_screen/user_setting_screen.dart';
@@ -31,6 +32,9 @@ class LogisticsLayout extends StatefulWidget {
 }
 
 class _LogisticsLayoutState extends State<LogisticsLayout> {
+  Position? _lastPosition;
+  double _updateDistance = 2000; // Default to 1000 meters (1 km)
+  List<double> _distanceOptions = [500, 1000, 2000, 5000, 8000, 10000, 20000]; // in meters
   @override
   void initState() {
     super.initState();
@@ -40,9 +44,32 @@ class _LogisticsLayoutState extends State<LogisticsLayout> {
           print("#################");
           print(position.latitude);
           print("#################");
+          if (_shouldUpdate(position)) {
+            updateUserPosition(position);
+          }
         }
       });
     _determinePosition();
+  }
+
+  bool _shouldUpdate(Position newPosition) {
+    if (_lastPosition == null) {
+      _lastPosition = newPosition;
+      return true;
+    }
+
+    double distance = Geolocator.distanceBetween(
+        _lastPosition!.latitude,
+        _lastPosition!.longitude,
+        newPosition.latitude,
+        newPosition.longitude
+    );
+
+    if (distance >= _updateDistance) {
+      _lastPosition = newPosition;
+      return true;
+    }
+    return false;
   }
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
@@ -100,6 +127,21 @@ class _LogisticsLayoutState extends State<LogisticsLayout> {
     print("////////////////////");
   }
 
+  void updateUserPosition(Position position) {
+    setState(() {
+      currentLat = position.latitude;
+      currentLong = position.longitude;
+      _kGooglePlex = CameraPosition(
+        target: LatLng(currentLat!, currentLong!),
+        zoom: 14.4746,
+      );
+    });
+    addStoresMarkers();
+    if (_controller != null) {
+      _controller!.animateCamera(CameraUpdate.newLatLng(LatLng(currentLat!, currentLong!)));
+    }
+  }
+
   void addStoresMarkers()async{
     final cubit= LogisticsCubit.get(context);
     if(currentLat!=null && currentLong!=null) {
@@ -108,7 +150,7 @@ class _LogisticsLayoutState extends State<LogisticsLayout> {
           currentLat!, currentLong!);
 
       final iconMarker= await getBytesFromAsset('assets/logisticAssets/store_icon.png', 120);
-      await cubit.getStoresLocations(currentLat??0.0, currentLong??0.0, placemarks.first.country??"");
+      await cubit.getStoresLocations(currentLat??0.0, currentLong??0.0, _updateDistance.toInt()??2000);
 
       myMarker.add(Marker(
           markerId: MarkerId("1"),
@@ -147,6 +189,35 @@ class _LogisticsLayoutState extends State<LogisticsLayout> {
             BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen)));
     _controller!.animateCamera(CameraUpdate.newLatLng(LatLng(newLat, newLong)));
     setState(() {});
+  }
+
+  void _showDistanceOptions(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) {
+        return Container(
+          child: Wrap(
+            children: <Widget>[
+              ListTile(
+                title: Text('Select Distance Range'),
+                tileColor: Colors.grey[200],
+              ),
+              ..._distanceOptions.map((distance) => ListTile(
+                title: Text('${(distance / 1000).toStringAsFixed(1)} km'),
+                onTap: () {
+                  setState(() {
+                    _updateDistance = distance;
+                  });
+                  addStoresMarkers();
+                  Navigator.pop(context);
+                },
+                trailing: _updateDistance == distance ? Icon(Icons.check) : null,
+              )).toList(),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -398,6 +469,36 @@ class _LogisticsLayoutState extends State<LogisticsLayout> {
                         spacesDivider(
                           sizedBoxSize: isMobileDevice ? twelve : sixteen,
                         ),
+                        GestureDetector(
+                          onTap: (){
+                            cubit.getUserDrivingMethods();
+                            navigateTo(context, DeliveryDashboard());
+                          },
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                'assets/signUpAssets/car-02.png',
+                                width: isMobileDevice ? thirty : thirtyFour,
+                                height: isMobileDevice ? thirty : thirtyFour,
+                                fit: BoxFit.cover,
+                                color: primaryLogisticColor,
+                              ),
+                              SizedBox(
+                                width: isMobileDevice ? ten : fourteen,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  dashBoard.tr,
+                                  style: TextStyle(
+                                    color: Colors.grey[600],
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: isMobileDevice ? sixteen : twenty,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -539,6 +640,17 @@ class _LogisticsLayoutState extends State<LogisticsLayout> {
                     )
                   ],
                 ),
+              ),
+            ),
+            Positioned(
+              top: 10, // Adjust this value to position the button vertically
+              right: 16, // Adjust this value to position the button horizontally
+              child: FloatingActionButton(
+                child: Icon(Icons.filter_list),
+                onPressed: () {
+                  _showDistanceOptions(context);
+                },
+                mini: true, // Makes the FAB smaller
               ),
             ),
           ],

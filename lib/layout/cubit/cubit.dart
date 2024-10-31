@@ -417,12 +417,12 @@ class LogisticsCubit extends Cubit<LogisticsStates> {
   }
 
   List<BusinessModel> listOfStores = [];
-  Future<void> getStoresLocations(double lat, double lng, String country) async {
+  Future<void> getStoresLocations(double lat, double lng, int distance) async {
     try{
       emit(LogisticsGetStoresLoadingState());
 
       FormData data = FormData.fromMap({
-        query: buildGetListOfStoresQuery(lat, lng, country),
+        query: buildGetListOfStoresQuery(lat, lng, distance),
       });
       final response = await Api.post(graphqlEndpointBusiness, data: data);
       if(response.data["errors"]!=null){

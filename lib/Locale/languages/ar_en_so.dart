@@ -49,6 +49,7 @@ Map<String, String> en={
   "Please add your license image":"Please add your license image",
   "color": "color",
   "Driving Method": "Driving Method",
+  "DashBoard": "DashBoard",
   "Status": "Status",
   "Year": "Year",
   "Fuel Type": "Fuel Type",
