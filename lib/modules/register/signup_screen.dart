@@ -25,7 +25,7 @@ class SignUpScreen extends StatelessWidget {
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController dateOfBirthController = TextEditingController();
   GlobalKey<FormState> signUpKey = GlobalKey<FormState>();
-  bool genderFill=false;
+  bool genderFill = false;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,9 @@ class SignUpScreen extends StatelessWidget {
                 child: SafeArea(
                   child: Center(
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: isMobileDevice ? ten : sixteen , vertical: isMobileDevice?thirty:forty),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: isMobileDevice ? ten : sixteen,
+                          vertical: isMobileDevice ? thirty : forty),
                       child: Form(
                         key: signUpKey,
                         child: Card(
@@ -63,23 +65,37 @@ class SignUpScreen extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(ten)),
                           child: Padding(
-                            padding: EdgeInsets.all(isMobileDevice ? five : sixteen),
+                            padding:
+                                EdgeInsets.all(isMobileDevice ? five : sixteen),
                             child: SingleChildScrollView(
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Image.asset(
-                                    'assets/signUpAssets/fazeal_logistic_logo.png',
-                                    width: isMobileDevice ? twoHundred : threeHundred,
-                                    height:
-                                        isMobileDevice ? oneHundred : oneHundredFifty,
-                                    fit: BoxFit.cover,
+                                  Container(
+                                    height: 100,
+                                    width: 130,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                                'assets/signUpAssets/samajik_logo.png'),
+                                            fit: BoxFit.cover)),
+                                    // child: Image.asset(
+                                    //   'assets/signUpAssets/samajik_logo.png',
+                                    //   width: isMobileDevice
+                                    //       ? twoHundred
+                                    //       : threeHundred,
+                                    //   height: isMobileDevice
+                                    //       ? oneHundred
+                                    //       : oneHundredFifty,
+                                    //   fit: BoxFit.cover,
+                                    // ),
                                   ),
                                   Text(
                                     signUpToLogistics.tr,
                                     style: TextStyle(
                                       color: primaryLogisticColor,
-                                      fontSize: isMobileDevice ? twenty : twentyFour,
+                                      fontSize:
+                                          isMobileDevice ? twenty : twentyFour,
                                     ),
                                   ),
                                   SizedBox(
@@ -94,15 +110,20 @@ class SignUpScreen extends StatelessWidget {
                                           labelText: firstName.tr,
                                           validator: (String? v) {
                                             if (v!.isEmpty) {
-                                              return "first name is required".tr;
+                                              return "first name is required"
+                                                  .tr;
                                             }
                                           },
                                           prefixIcon: Padding(
                                             padding: const EdgeInsets.all(five),
                                             child: Image.asset(
                                               'assets/signUpAssets/user-03.png',
-                                              width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                              height: isMobileDevice ? twentyTwo : thirtyTwo,
+                                              width: isMobileDevice
+                                                  ? twentyTwo
+                                                  : thirtyTwo,
+                                              height: isMobileDevice
+                                                  ? twentyTwo
+                                                  : thirtyTwo,
                                               fit: BoxFit.contain,
                                               color: primaryLogisticColor
                                                   .withOpacity(0.5),
@@ -127,8 +148,12 @@ class SignUpScreen extends StatelessWidget {
                                             padding: EdgeInsets.all(five),
                                             child: Image.asset(
                                               'assets/signUpAssets/users-02.png',
-                                              width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                              height: isMobileDevice ? twentyTwo : thirtyTwo,
+                                              width: isMobileDevice
+                                                  ? twentyTwo
+                                                  : thirtyTwo,
+                                              height: isMobileDevice
+                                                  ? twentyTwo
+                                                  : thirtyTwo,
                                               fit: BoxFit.contain,
                                               color: primaryLogisticColor
                                                   .withOpacity(0.5),
@@ -154,10 +179,15 @@ class SignUpScreen extends StatelessWidget {
                                       padding: EdgeInsets.all(five),
                                       child: Image.asset(
                                         'assets/signUpAssets/user-circle.png',
-                                        width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                        height: isMobileDevice ? twentyTwo : thirtyTwo,
+                                        width: isMobileDevice
+                                            ? twentyTwo
+                                            : thirtyTwo,
+                                        height: isMobileDevice
+                                            ? twentyTwo
+                                            : thirtyTwo,
                                         fit: BoxFit.contain,
-                                        color: primaryLogisticColor.withOpacity(0.5),
+                                        color: primaryLogisticColor
+                                            .withOpacity(0.5),
                                       ),
                                     ),
                                   ),
@@ -180,10 +210,15 @@ class SignUpScreen extends StatelessWidget {
                                       padding: EdgeInsets.all(five),
                                       child: Image.asset(
                                         'assets/signUpAssets/mail-05.png',
-                                        width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                        height: isMobileDevice ? twentyTwo : thirtyTwo,
+                                        width: isMobileDevice
+                                            ? twentyTwo
+                                            : thirtyTwo,
+                                        height: isMobileDevice
+                                            ? twentyTwo
+                                            : thirtyTwo,
                                         fit: BoxFit.contain,
-                                        color: primaryLogisticColor.withOpacity(0.5),
+                                        color: primaryLogisticColor
+                                            .withOpacity(0.5),
                                       ),
                                     ),
                                   ),
@@ -203,10 +238,15 @@ class SignUpScreen extends StatelessWidget {
                                       padding: EdgeInsets.all(five),
                                       child: Image.asset(
                                         'assets/signUpAssets/phone-call-01.png',
-                                        width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                        height: isMobileDevice ? twentyTwo : thirtyTwo,
+                                        width: isMobileDevice
+                                            ? twentyTwo
+                                            : thirtyTwo,
+                                        height: isMobileDevice
+                                            ? twentyTwo
+                                            : thirtyTwo,
                                         fit: BoxFit.contain,
-                                        color: primaryLogisticColor.withOpacity(0.5),
+                                        color: primaryLogisticColor
+                                            .withOpacity(0.5),
                                       ),
                                     ),
                                   ),
@@ -222,7 +262,8 @@ class SignUpScreen extends StatelessWidget {
                                       }
                                     },
                                     onTap: () async {
-                                      final DateTime? picked = await showDatePicker(
+                                      final DateTime? picked =
+                                          await showDatePicker(
                                         context: context,
                                         initialDate: cubit.selectedDate,
                                         firstDate: DateTime(1900, 8),
@@ -234,7 +275,8 @@ class SignUpScreen extends StatelessWidget {
                                                 primary: primaryLogisticColor,
                                                 onPrimary: Colors.white,
                                               ),
-                                              textButtonTheme: TextButtonThemeData(
+                                              textButtonTheme:
+                                                  TextButtonThemeData(
                                                 style: TextButton.styleFrom(
                                                     textStyle: TextStyle(
                                                         color: Colors
@@ -250,7 +292,8 @@ class SignUpScreen extends StatelessWidget {
                                         setState(() {
                                           cubit.selectedDate = picked;
                                           dateOfBirthController.text =
-                                              DateFormat('yyyy/MM/dd').format(picked);
+                                              DateFormat('yyyy/MM/dd')
+                                                  .format(picked);
                                         });
                                       }
                                     },
@@ -259,10 +302,15 @@ class SignUpScreen extends StatelessWidget {
                                       padding: EdgeInsets.all(five),
                                       child: Image.asset(
                                         'assets/signUpAssets/calendar-date.png',
-                                        width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                        height: isMobileDevice ? twentyTwo : thirtyTwo,
+                                        width: isMobileDevice
+                                            ? twentyTwo
+                                            : thirtyTwo,
+                                        height: isMobileDevice
+                                            ? twentyTwo
+                                            : thirtyTwo,
                                         fit: BoxFit.contain,
-                                        color: primaryLogisticColor.withOpacity(0.5),
+                                        color: primaryLogisticColor
+                                            .withOpacity(0.5),
                                       ),
                                     ),
                                   ),
@@ -275,14 +323,17 @@ class SignUpScreen extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius:
-                                          BorderRadiusDirectional.circular(fifteen),
+                                          BorderRadiusDirectional.circular(
+                                              fifteen),
                                       border: Border.all(
-                                        color: primaryLogisticColor.withOpacity(0.5),
+                                        color: primaryLogisticColor
+                                            .withOpacity(0.5),
                                         width: one,
                                       ),
                                     ),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Row(
                                           children: [
@@ -295,7 +346,9 @@ class SignUpScreen extends StatelessWidget {
                                                   .withOpacity(0.5),
                                             ),
                                             SizedBox(
-                                              width: isMobileDevice ? ten : sixteen,
+                                              width: isMobileDevice
+                                                  ? ten
+                                                  : sixteen,
                                             ),
                                             Expanded(
                                               child: Text(
@@ -311,7 +364,8 @@ class SignUpScreen extends StatelessWidget {
                                           ],
                                         ),
                                         SizedBox(
-                                          height: isMobileDevice ? ten : sixteen,
+                                          height:
+                                              isMobileDevice ? ten : sixteen,
                                         ),
                                         Row(
                                           children: [
@@ -319,15 +373,19 @@ class SignUpScreen extends StatelessWidget {
                                               value: male,
                                               groupValue: cubit.genderType,
                                               onChanged: (v) {
-                                                cubit.changeGender(v.toString());
+                                                cubit
+                                                    .changeGender(v.toString());
                                               },
                                               materialTapTargetSize:
-                                                  MaterialTapTargetSize.shrinkWrap,
-                                              fillColor: MaterialStatePropertyAll(
-                                                  primaryLogisticColor),
+                                                  MaterialTapTargetSize
+                                                      .shrinkWrap,
+                                              fillColor:
+                                                  MaterialStatePropertyAll(
+                                                      primaryLogisticColor),
                                             ),
                                             SizedBox(
-                                              height: isMobileDevice ? five : ten,
+                                              height:
+                                                  isMobileDevice ? five : ten,
                                             ),
                                             Expanded(
                                               child: Text(
@@ -344,15 +402,19 @@ class SignUpScreen extends StatelessWidget {
                                               value: feMale,
                                               groupValue: cubit.genderType,
                                               onChanged: (v) {
-                                                cubit.changeGender(v.toString());
+                                                cubit
+                                                    .changeGender(v.toString());
                                               },
                                               materialTapTargetSize:
-                                                  MaterialTapTargetSize.shrinkWrap,
-                                              fillColor: MaterialStatePropertyAll(
-                                                  primaryLogisticColor),
+                                                  MaterialTapTargetSize
+                                                      .shrinkWrap,
+                                              fillColor:
+                                                  MaterialStatePropertyAll(
+                                                      primaryLogisticColor),
                                             ),
                                             SizedBox(
-                                              height: isMobileDevice ? five : ten,
+                                              height:
+                                                  isMobileDevice ? five : ten,
                                             ),
                                             Expanded(
                                               child: Text(
@@ -369,15 +431,19 @@ class SignUpScreen extends StatelessWidget {
                                               value: other,
                                               groupValue: cubit.genderType,
                                               onChanged: (v) {
-                                                cubit.changeGender(v.toString());
+                                                cubit
+                                                    .changeGender(v.toString());
                                               },
                                               materialTapTargetSize:
-                                                  MaterialTapTargetSize.shrinkWrap,
-                                              fillColor: MaterialStatePropertyAll(
-                                                  primaryLogisticColor),
+                                                  MaterialTapTargetSize
+                                                      .shrinkWrap,
+                                              fillColor:
+                                                  MaterialStatePropertyAll(
+                                                      primaryLogisticColor),
                                             ),
                                             SizedBox(
-                                              height: isMobileDevice ? five : ten,
+                                              height:
+                                                  isMobileDevice ? five : ten,
                                             ),
                                             Expanded(
                                               child: Text(
@@ -395,11 +461,14 @@ class SignUpScreen extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  if(genderFill)
-                                    Text("please select gender option".tr, style: TextStyle(
-                                      color: Colors.red,
-                                      fontSize: twelve,
-                                    ),),
+                                  if (genderFill)
+                                    Text(
+                                      "please select gender option".tr,
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: twelve,
+                                      ),
+                                    ),
                                   SizedBox(
                                     height: isMobileDevice ? ten : sixteen,
                                   ),
@@ -417,29 +486,46 @@ class SignUpScreen extends StatelessWidget {
                                       onTap: cubit.changeVisibilityPassword,
                                       child: Padding(
                                         padding: EdgeInsets.all(five),
-                                        child: cubit.passwordVisible? Image.asset(
-                                          'assets/signUpAssets/eye.png',
-                                          width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          height: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          fit: BoxFit.contain,
-                                          color: primaryLogisticColor.withOpacity(0.5),
-                                        ):  Image.asset(
-                                          'assets/signUpAssets/eye-off.png',
-                                          width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          height: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          fit: BoxFit.contain,
-                                          color: primaryLogisticColor.withOpacity(0.5),
+                                        child: cubit.passwordVisible
+                                            ? Image.asset(
+                                                'assets/signUpAssets/eye.png',
+                                                width: isMobileDevice
+                                                    ? twentyTwo
+                                                    : thirtyTwo,
+                                                height: isMobileDevice
+                                                    ? twentyTwo
+                                                    : thirtyTwo,
+                                                fit: BoxFit.contain,
+                                                color: primaryLogisticColor
+                                                    .withOpacity(0.5),
+                                              )
+                                            : Image.asset(
+                                                'assets/signUpAssets/eye-off.png',
+                                                width: isMobileDevice
+                                                    ? twentyTwo
+                                                    : thirtyTwo,
+                                                height: isMobileDevice
+                                                    ? twentyTwo
+                                                    : thirtyTwo,
+                                                fit: BoxFit.contain,
+                                                color: primaryLogisticColor
+                                                    .withOpacity(0.5),
+                                              ),
                                       ),
-                                    ),
                                     ),
                                     prefixIcon: Padding(
                                       padding: EdgeInsets.all(eight),
                                       child: Image.asset(
                                         'assets/signUpAssets/lock-keyhole-circle.png',
-                                        width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                        height: isMobileDevice ? twentyTwo : thirtyTwo,
+                                        width: isMobileDevice
+                                            ? twentyTwo
+                                            : thirtyTwo,
+                                        height: isMobileDevice
+                                            ? twentyTwo
+                                            : thirtyTwo,
                                         fit: BoxFit.contain,
-                                        color: primaryLogisticColor.withOpacity(0.5),
+                                        color: primaryLogisticColor
+                                            .withOpacity(0.5),
                                       ),
                                     ),
                                   ),
@@ -460,29 +546,46 @@ class SignUpScreen extends StatelessWidget {
                                       onTap: cubit.changeVisibilityPassword,
                                       child: Padding(
                                         padding: EdgeInsets.all(five),
-                                        child: cubit.passwordVisible? Image.asset(
-                                          'assets/signUpAssets/eye.png',
-                                          width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          height: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          fit: BoxFit.contain,
-                                          color: primaryLogisticColor.withOpacity(0.5),
-                                        ):  Image.asset(
-                                          'assets/signUpAssets/eye-off.png',
-                                          width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          height: isMobileDevice ? twentyTwo : thirtyTwo,
-                                          fit: BoxFit.contain,
-                                          color: primaryLogisticColor.withOpacity(0.5),
+                                        child: cubit.passwordVisible
+                                            ? Image.asset(
+                                                'assets/signUpAssets/eye.png',
+                                                width: isMobileDevice
+                                                    ? twentyTwo
+                                                    : thirtyTwo,
+                                                height: isMobileDevice
+                                                    ? twentyTwo
+                                                    : thirtyTwo,
+                                                fit: BoxFit.contain,
+                                                color: primaryLogisticColor
+                                                    .withOpacity(0.5),
+                                              )
+                                            : Image.asset(
+                                                'assets/signUpAssets/eye-off.png',
+                                                width: isMobileDevice
+                                                    ? twentyTwo
+                                                    : thirtyTwo,
+                                                height: isMobileDevice
+                                                    ? twentyTwo
+                                                    : thirtyTwo,
+                                                fit: BoxFit.contain,
+                                                color: primaryLogisticColor
+                                                    .withOpacity(0.5),
+                                              ),
                                       ),
-                                    ),
                                     ),
                                     prefixIcon: Padding(
                                       padding: EdgeInsets.all(eight),
                                       child: Image.asset(
                                         'assets/signUpAssets/lock-keyhole-circle.png',
-                                        width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                        height: isMobileDevice ? twentyTwo : thirtyTwo,
+                                        width: isMobileDevice
+                                            ? twentyTwo
+                                            : thirtyTwo,
+                                        height: isMobileDevice
+                                            ? twentyTwo
+                                            : thirtyTwo,
                                         fit: BoxFit.contain,
-                                        color: primaryLogisticColor.withOpacity(0.5),
+                                        color: primaryLogisticColor
+                                            .withOpacity(0.5),
                                       ),
                                     ),
                                   ),
@@ -490,7 +593,8 @@ class SignUpScreen extends StatelessWidget {
                                     height: isMobileDevice ? ten : sixteen,
                                   ),
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Transform.scale(
                                         scale: isMobileDevice
@@ -498,23 +602,29 @@ class SignUpScreen extends StatelessWidget {
                                             : onePointTwo,
                                         child: Checkbox(
                                           value: cubit.isAcceptTermAndCondition,
-                                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                          fillColor: MaterialStatePropertyAll(primaryLogisticColor),
+                                          materialTapTargetSize:
+                                              MaterialTapTargetSize.shrinkWrap,
+                                          fillColor: MaterialStatePropertyAll(
+                                              primaryLogisticColor),
                                           onChanged: (v) {
-                                            cubit.changeAcceptTermAndCondition();
+                                            cubit
+                                                .changeAcceptTermAndCondition();
                                           },
                                         ),
                                       ),
                                       SizedBox(
-                                        width: isMobileDevice ? fifteen : twentyFive,
+                                        width: isMobileDevice
+                                            ? fifteen
+                                            : twentyFive,
                                       ),
                                       Expanded(
                                         child: RichText(
                                           text: TextSpan(
                                             text: byClick.tr,
                                             style: TextStyle(
-                                              fontSize:
-                                                  isMobileDevice ? twelve : twenty,
+                                              fontSize: isMobileDevice
+                                                  ? twelve
+                                                  : twenty,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.grey,
                                             ),
@@ -526,9 +636,11 @@ class SignUpScreen extends StatelessWidget {
                                                     fontSize: isMobileDevice
                                                         ? twelve
                                                         : twenty,
-                                                    fontWeight: FontWeight.bold),
-                                                recognizer: TapGestureRecognizer()
-                                                  ..onTap = () async {},
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                                recognizer:
+                                                    TapGestureRecognizer()
+                                                      ..onTap = () async {},
                                               ),
                                               TextSpan(
                                                 text: dataPolicy.tr,
@@ -539,8 +651,9 @@ class SignUpScreen extends StatelessWidget {
                                                       : twentyThree,
                                                   fontWeight: FontWeight.bold,
                                                 ),
-                                                recognizer: TapGestureRecognizer()
-                                                  ..onTap = () async {},
+                                                recognizer:
+                                                    TapGestureRecognizer()
+                                                      ..onTap = () async {},
                                               ),
                                               TextSpan(
                                                 text: and.tr,
@@ -559,9 +672,11 @@ class SignUpScreen extends StatelessWidget {
                                                     fontSize: isMobileDevice
                                                         ? twelve
                                                         : twenty,
-                                                    fontWeight: FontWeight.bold),
-                                                recognizer: TapGestureRecognizer()
-                                                  ..onTap = () async {},
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                                recognizer:
+                                                    TapGestureRecognizer()
+                                                      ..onTap = () async {},
                                               ),
                                               TextSpan(
                                                 text: youCanReceiveViaSms.tr,
@@ -574,7 +689,8 @@ class SignUpScreen extends StatelessWidget {
                                                 ),
                                               ),
                                               TextSpan(
-                                                text: fromUsAndCanOptOutAnyTime.tr,
+                                                text: fromUsAndCanOptOutAnyTime
+                                                    .tr,
                                                 style: TextStyle(
                                                   fontSize: isMobileDevice
                                                       ? twelve
@@ -593,27 +709,50 @@ class SignUpScreen extends StatelessWidget {
                                     height: isMobileDevice ? ten : sixteen,
                                   ),
                                   logisticButton(
-                                      isMobileDevice: isMobileDevice,
-                                      onPressed: cubit.isAcceptTermAndCondition?() async{
-                                        if(cubit.genderType.isNotEmpty){
-                                          genderFill=false;
-                                          setState((){});
-                                        } else {
-                                          genderFill=true;
-                                          setState((){});
-                                        }
-                                        if(signUpKey.currentState!.validate() && cubit.genderType.isNotEmpty){
-                                          if(passwordController.text==passwordController2.text){
-                                            cubit.registerData=RegisterData(firstName: firstNameController.text, lastName:lastNameController.text, email:emailController.text, gender:cubit.genderType, dateOfBirth:dateOfBirthController.text , password:passwordController.text , phoneNumber:phoneNumberController.text , userName:userNameController.text);
-                                            navigateTo(context,
-                                                SignUpUploadIdCardImageScreen());
-                                          }else{
-                                            showToastFailed('The passwords is not the same'.tr);
+                                    isMobileDevice: isMobileDevice,
+                                    onPressed: cubit.isAcceptTermAndCondition
+                                        ? () async {
+                                            if (cubit.genderType.isNotEmpty) {
+                                              genderFill = false;
+                                              setState(() {});
+                                            } else {
+                                              genderFill = true;
+                                              setState(() {});
+                                            }
+                                            if (signUpKey.currentState!
+                                                    .validate() &&
+                                                cubit.genderType.isNotEmpty) {
+                                              if (passwordController.text ==
+                                                  passwordController2.text) {
+                                                cubit.registerData = RegisterData(
+                                                    firstName:
+                                                        firstNameController
+                                                            .text,
+                                                    lastName:
+                                                        lastNameController.text,
+                                                    email: emailController.text,
+                                                    gender: cubit.genderType,
+                                                    dateOfBirth:
+                                                        dateOfBirthController
+                                                            .text,
+                                                    password:
+                                                        passwordController.text,
+                                                    phoneNumber:
+                                                        phoneNumberController
+                                                            .text,
+                                                    userName: userNameController
+                                                        .text);
+                                                navigateTo(context,
+                                                    SignUpUploadIdCardImageScreen());
+                                              } else {
+                                                showToastFailed(
+                                                    'The passwords is not the same'
+                                                        .tr);
+                                              }
+                                            }
                                           }
-
-                                        }
-                                      }:null,
-                                      buttonTitle: next.tr,
+                                        : null,
+                                    buttonTitle: next.tr,
                                   ),
                                   SizedBox(
                                     height: isMobileDevice ? ten : sixteen,
@@ -625,8 +764,9 @@ class SignUpScreen extends StatelessWidget {
                                         ifYouAlreadyHaveAccount.tr,
                                         style: TextStyle(
                                           color: Colors.grey,
-                                          fontSize:
-                                              isMobileDevice ? fourteen : twentyFour,
+                                          fontSize: isMobileDevice
+                                              ? fourteen
+                                              : twentyFour,
                                         ),
                                       ),
                                       InkWell(

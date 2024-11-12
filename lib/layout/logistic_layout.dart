@@ -34,21 +34,29 @@ class LogisticsLayout extends StatefulWidget {
 class _LogisticsLayoutState extends State<LogisticsLayout> {
   Position? _lastPosition;
   double _updateDistance = 2000; // Default to 1000 meters (1 km)
-  List<double> _distanceOptions = [500, 1000, 2000, 5000, 8000, 10000, 20000]; // in meters
+  List<double> _distanceOptions = [
+    500,
+    1000,
+    2000,
+    5000,
+    8000,
+    10000,
+    20000
+  ]; // in meters
   @override
   void initState() {
     super.initState();
-      ps = Geolocator.getPositionStream().listen((Position position) {
-        if(myMarker.isNotEmpty) {
-          changeMarker(position.latitude, position.longitude);
-          print("#################");
-          print(position.latitude);
-          print("#################");
-          if (_shouldUpdate(position)) {
-            updateUserPosition(position);
-          }
+    ps = Geolocator.getPositionStream().listen((Position position) {
+      if (myMarker.isNotEmpty) {
+        changeMarker(position.latitude, position.longitude);
+        print("#################");
+        print(position.latitude);
+        print("#################");
+        if (_shouldUpdate(position)) {
+          updateUserPosition(position);
         }
-      });
+      }
+    });
     _determinePosition();
   }
 
@@ -58,12 +66,8 @@ class _LogisticsLayoutState extends State<LogisticsLayout> {
       return true;
     }
 
-    double distance = Geolocator.distanceBetween(
-        _lastPosition!.latitude,
-        _lastPosition!.longitude,
-        newPosition.latitude,
-        newPosition.longitude
-    );
+    double distance = Geolocator.distanceBetween(_lastPosition!.latitude,
+        _lastPosition!.longitude, newPosition.latitude, newPosition.longitude);
 
     if (distance >= _updateDistance) {
       _lastPosition = newPosition;
@@ -74,10 +78,12 @@ class _LogisticsLayoutState extends State<LogisticsLayout> {
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);
-    ui.Codec codec =
-    await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
     ui.FrameInfo fi = await codec.getNextFrame();
-    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer.asUint8List();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+        .buffer
+        .asUint8List();
   }
 
   GlobalKey<ScaffoldState> homeKey = GlobalKey<ScaffoldState>();
@@ -138,35 +144,49 @@ class _LogisticsLayoutState extends State<LogisticsLayout> {
     });
     addStoresMarkers();
     if (_controller != null) {
-      _controller!.animateCamera(CameraUpdate.newLatLng(LatLng(currentLat!, currentLong!)));
+      _controller!.animateCamera(
+          CameraUpdate.newLatLng(LatLng(currentLat!, currentLong!)));
     }
   }
 
-  void addStoresMarkers()async{
-    final cubit= LogisticsCubit.get(context);
-    if(currentLat!=null && currentLong!=null) {
+  void addStoresMarkers() async {
+    final cubit = LogisticsCubit.get(context);
+    if (currentLat != null && currentLong != null) {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(currentLat!, currentLong!);
 
-      List<Placemark> placemarks = await placemarkFromCoordinates(
-          currentLat!, currentLong!);
-
-      final iconMarker= await getBytesFromAsset('assets/logisticAssets/store_icon.png', 120);
-      await cubit.getStoresLocations(currentLat??0.0, currentLong??0.0, _updateDistance.toInt()??2000);
+      final iconMarker =
+          await getBytesFromAsset('assets/logisticAssets/store_icon.png', 120);
+      await cubit.getStoresLocations(currentLat ?? 0.0, currentLong ?? 0.0,
+          _updateDistance.toInt() ?? 2000);
 
       myMarker.add(Marker(
           markerId: MarkerId("1"),
           position: LatLng(currentLat!, currentLong!),
           infoWindow: InfoWindow(title: "Me"),
           draggable: true,
-          icon:
-          BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen)));
+          icon: BitmapDescriptor.defaultMarkerWithHue(
+              BitmapDescriptor.hueGreen)));
 
-      myMarker.addAll(List.generate(cubit.listOfStores.length, (index) => Marker(
-          markerId: MarkerId("${cubit.listOfStores[index].contactNo}$index"),
-          position: LatLng(cubit.listOfStores[index].latitude, cubit.listOfStores[index].longitude),
-          infoWindow: InfoWindow(title: cubit.listOfStores[index].businessName),
-          draggable: false,
-          icon: BitmapDescriptor.fromBytes(iconMarker)
-      )));
+      myMarker.addAll(List.generate(
+          cubit.listOfStores.length,
+          (index) => Marker(
+              markerId:
+                  MarkerId("${cubit.listOfStores[index].contactNo}$index"),
+              position: LatLng(cubit.listOfStores[index].latitude,
+                  cubit.listOfStores[index].longitude),
+              infoWindow:
+                  InfoWindow(title: cubit.listOfStores[index].businessName),
+              draggable: false,
+              icon: BitmapDescriptor.fromBytes(iconMarker),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DeliveryDashboard(),
+                    ));
+                // builder: (context) => StoreDetailsScreen(store: cubit.listOfStores[index])));
+              })));
       setState(() {});
     }
   }
@@ -202,17 +222,22 @@ class _LogisticsLayoutState extends State<LogisticsLayout> {
                 title: Text('Select Distance Range'),
                 tileColor: Colors.grey[200],
               ),
-              ..._distanceOptions.map((distance) => ListTile(
-                title: Text('${(distance / 1000).toStringAsFixed(1)} km'),
-                onTap: () {
-                  setState(() {
-                    _updateDistance = distance;
-                  });
-                  addStoresMarkers();
-                  Navigator.pop(context);
-                },
-                trailing: _updateDistance == distance ? Icon(Icons.check) : null,
-              )).toList(),
+              ..._distanceOptions
+                  .map((distance) => ListTile(
+                        title:
+                            Text('${(distance / 1000).toStringAsFixed(1)} km'),
+                        onTap: () {
+                          setState(() {
+                            _updateDistance = distance;
+                          });
+                          addStoresMarkers();
+                          Navigator.pop(context);
+                        },
+                        trailing: _updateDistance == distance
+                            ? Icon(Icons.check)
+                            : null,
+                      ))
+                  .toList(),
             ],
           ),
         );
@@ -227,9 +252,7 @@ class _LogisticsLayoutState extends State<LogisticsLayout> {
     final cubit = LogisticsCubit.get(context);
 
     return BlocConsumer<LogisticsCubit, LogisticsStates>(
-      listener: (context, state) {
-
-      },
+      listener: (context, state) {},
       builder: (context, state) => Scaffold(
         key: homeKey,
         appBar: AppBar(
@@ -239,86 +262,100 @@ class _LogisticsLayoutState extends State<LogisticsLayout> {
           clipBehavior: Clip.antiAliasWithSaveLayer,
           width: mediaQuery.size.width * 0.75,
           shape: RoundedRectangleBorder(
-              borderRadius:
-                  BorderRadius.horizontal(right: Radius.circular(twenty),left: Radius.circular(twenty))),
-          child: MyApp.currentUser!=null?Column(
-            children: [
-              Stack(
-                alignment: Alignment.bottomRight,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(isMobileDevice ? twenty : thirty),
-                    height: mediaQuery.size.height * 0.25,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: const [
-                          primaryLogisticColor,
-                          secondaryLogisticColor,
-                          subColorLogisticColor,
-                        ],
-                      ),
-                    ),
-                    child: SafeArea(
-                      child: Row(
-                        children: [
-                          Container(
-                            width: isMobileDevice ? seventy : seventy,
-                            height: isMobileDevice ? seventy : seventy,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: four,
-                                  color: Colors.grey[300]!,
-                                )
+              borderRadius: BorderRadius.horizontal(
+                  right: Radius.circular(twenty),
+                  left: Radius.circular(twenty))),
+          child: MyApp.currentUser != null
+              ? Column(
+                  children: [
+                    Stack(
+                      alignment: Alignment.bottomRight,
+                      children: [
+                        Container(
+                          padding:
+                              EdgeInsets.all(isMobileDevice ? twenty : thirty),
+                          height: mediaQuery.size.height * 0.25,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: const [
+                                primaryLogisticColor,
+                                secondaryLogisticColor,
+                                subColorLogisticColor,
                               ],
                             ),
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            child: MyApp.currentUser!.userPersonalImageUrl==null? Image.asset(
-                              'assets/logisticAssets/defultProfileImage.png',
-                              fit: BoxFit.cover,
-                            ):Image.network(
-                              '$amazonImagePath/${MyApp.currentUser!.userPersonalImageUrl}',
-                              fit: BoxFit.cover,
-                            ),
                           ),
-                          SizedBox(
-                            width: isMobileDevice ? ten : fourteen,
-                          ),
-                          Expanded(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                          child: SafeArea(
+                            child: Row(
                               children: [
-                                Text(
-                                '${MyApp.currentUser!.firstName} ${MyApp.currentUser!.lastName}',
-                                  style: TextStyle(
+                                Container(
+                                  width: isMobileDevice ? seventy : seventy,
+                                  height: isMobileDevice ? seventy : seventy,
+                                  decoration: BoxDecoration(
                                     color: Colors.white,
-                                    fontSize:
-                                        isMobileDevice ? eighteen : twentyFour,
-                                    shadows: [
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
                                       BoxShadow(
-                                        blurRadius: three,
+                                        blurRadius: four,
                                         color: Colors.grey[300]!,
-                                      ),
+                                      )
                                     ],
                                   ),
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  child:
+                                      MyApp.currentUser!.userPersonalImageUrl ==
+                                              null
+                                          ? Image.asset(
+                                              'assets/logisticAssets/defultProfileImage.png',
+                                              fit: BoxFit.cover,
+                                            )
+                                          : Image.network(
+                                              '$amazonImagePath/${MyApp.currentUser!.userPersonalImageUrl}',
+                                              fit: BoxFit.cover,
+                                            ),
                                 ),
                                 SizedBox(
-                                  height: isMobileDevice ? five : ten,
+                                  width: isMobileDevice ? ten : fourteen,
                                 ),
-                                Text(
-                                  MyApp.currentUser!.userName,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: isMobileDevice ? fourteen : twenty,
-                                    shadows: [
-                                      BoxShadow(
-                                        blurRadius: two,
-                                        color: Colors.grey[300]!,
+                                Expanded(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '${MyApp.currentUser!.firstName} ${MyApp.currentUser!.lastName}',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: isMobileDevice
+                                              ? eighteen
+                                              : twentyFour,
+                                          shadows: [
+                                            BoxShadow(
+                                              blurRadius: three,
+                                              color: Colors.grey[300]!,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: isMobileDevice ? five : ten,
+                                      ),
+                                      Text(
+                                        MyApp.currentUser!.userName,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: isMobileDevice
+                                              ? fourteen
+                                              : twenty,
+                                          shadows: [
+                                            BoxShadow(
+                                              blurRadius: two,
+                                              color: Colors.grey[300]!,
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -326,272 +363,281 @@ class _LogisticsLayoutState extends State<LogisticsLayout> {
                               ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(fourteen),
-                    child: GestureDetector(
-                      onTap: () {
-                        cubit.getUserData();
-                        cubit.closeAllUserSettingVariable();
-                        navigateTo(context, UserSettingScreen());
-                      },
-                      child: Image.asset(
-                        'assets/logisticAssets/settings-01.png',
-                        width: isMobileDevice ? thirty : thirtyFour,
-                        height: isMobileDevice ? thirty : thirtyFour,
-                        fit: BoxFit.cover,
-                        color: Colors.white,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: isMobileDevice ? ten : fourteen,
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: isMobileDevice ? ten : sixteen,
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Image.asset(
-                              'assets/logisticAssets/check-circle.png',
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(fourteen),
+                          child: GestureDetector(
+                            onTap: () {
+                              cubit.getUserData();
+                              cubit.closeAllUserSettingVariable();
+                              navigateTo(context, UserSettingScreen());
+                            },
+                            child: Image.asset(
+                              'assets/logisticAssets/settings-01.png',
                               width: isMobileDevice ? thirty : thirtyFour,
                               height: isMobileDevice ? thirty : thirtyFour,
                               fit: BoxFit.cover,
-                              color: primaryLogisticColor,
+                              color: Colors.white,
                             ),
-                            SizedBox(
-                              width: isMobileDevice ? ten : fourteen,
-                            ),
-                            Expanded(
-                              child: Text(
-                                available.tr,
-                                style: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: isMobileDevice ? sixteen : twenty,
-                                ),
-                              ),
-                            ),
-                            Transform.scale(
-                              scale: isMobileDevice ? one : onePointTwo,
-                              child: Switch.adaptive(
-                                value: cubit.isDriverAvailable,
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
-                                activeColor: subColorLogisticColor,
-                                onChanged: (v) {
-                                  cubit.changeDriverAvailability();
-                                  setState(() {
-
-                                  });
-                                  cubit.setDriverAvailability(available: cubit.isDriverAvailable);
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                        spacesDivider(
-                          sizedBoxSize: isMobileDevice ? twelve : sixteen,
-                        ),
-                        GestureDetector(
-                          onTap: (){
-                            cubit.getUserDrivingMethods();
-                            navigateTo(context, DrivingMethodScreen());
-                          },
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                'assets/signUpAssets/car-02.png',
-                                width: isMobileDevice ? thirty : thirtyFour,
-                                height: isMobileDevice ? thirty : thirtyFour,
-                                fit: BoxFit.cover,
-                                color: primaryLogisticColor,
-                              ),
-                              SizedBox(
-                                width: isMobileDevice ? ten : fourteen,
-                              ),
-                              Expanded(
-                                child: Text(
-                                  drivingMethod.tr,
-                                  style: TextStyle(
-                                    color: Colors.grey[600],
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: isMobileDevice ? sixteen : twenty,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        spacesDivider(
-                          sizedBoxSize: isMobileDevice ? twelve : sixteen,
-                        ),
-                        GestureDetector(
-                          onTap: (){
-                            cubit.getUserDrivingMethods();
-                            navigateTo(context, DrivingMethodInfoScreen());
-                          },
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                'assets/signUpAssets/speedometer-04.png',
-                                width: isMobileDevice ? thirty : thirtyFour,
-                                height: isMobileDevice ? thirty : thirtyFour,
-                                fit: BoxFit.cover,
-                                color: primaryLogisticColor,
-                              ),
-                              SizedBox(
-                                width: isMobileDevice ? ten : fourteen,
-                              ),
-                              Expanded(
-                                child: Text(
-                                  drivingMethodInfo.tr,
-                                  style: TextStyle(
-                                    color: Colors.grey[600],
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: isMobileDevice ? sixteen : twenty,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        spacesDivider(
-                          sizedBoxSize: isMobileDevice ? twelve : sixteen,
-                        ),
-                        GestureDetector(
-                          onTap: (){
-                            cubit.getUserDrivingMethods();
-                            navigateTo(context, DeliveryDashboard());
-                          },
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                'assets/signUpAssets/car-02.png',
-                                width: isMobileDevice ? thirty : thirtyFour,
-                                height: isMobileDevice ? thirty : thirtyFour,
-                                fit: BoxFit.cover,
-                                color: primaryLogisticColor,
-                              ),
-                              SizedBox(
-                                width: isMobileDevice ? ten : fourteen,
-                              ),
-                              Expanded(
-                                child: Text(
-                                  dashBoard.tr,
-                                  style: TextStyle(
-                                    color: Colors.grey[600],
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: isMobileDevice ? sixteen : twenty,
-                                  ),
-                                ),
-                              ),
-                            ],
                           ),
                         )
                       ],
                     ),
-                  ),
-                ),
-              ),
-              Container(
-                color: babyGrey,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: isMobileDevice ? ten : sixteen,
-                    vertical: isMobileDevice ? thirty : forty,
-                  ),
-                  child: InkWell(
-                    onTap: () {
-                      accessToken=null;
-                      MyApp.currentUser=null;
-                      CacheHelper.removeData(key: 'token');
-                      navigatePushAndRemoveUntil(context, LoginScreen());
-                    },
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          'assets/logisticAssets/log-out-04.png',
-                          width: isMobileDevice ? thirty : thirtyFour,
-                          height: isMobileDevice ? thirty : thirtyFour,
-                          fit: BoxFit.cover,
-                          color: primaryLogisticColor,
-                        ),
-                        SizedBox(
-                          width: isMobileDevice ? ten : fourteen,
-                        ),
-                        Expanded(
-                          child: Text(
-                            logout.tr,
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                              fontWeight: FontWeight.bold,
-                              fontSize: isMobileDevice ? sixteen : twenty,
-                            ),
+                    SizedBox(
+                      height: isMobileDevice ? ten : fourteen,
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: isMobileDevice ? ten : sixteen,
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Image.asset(
+                                    'assets/logisticAssets/check-circle.png',
+                                    width: isMobileDevice ? thirty : thirtyFour,
+                                    height:
+                                        isMobileDevice ? thirty : thirtyFour,
+                                    fit: BoxFit.cover,
+                                    color: primaryLogisticColor,
+                                  ),
+                                  SizedBox(
+                                    width: isMobileDevice ? ten : fourteen,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      available.tr,
+                                      style: TextStyle(
+                                        color: Colors.grey[600],
+                                        fontWeight: FontWeight.bold,
+                                        fontSize:
+                                            isMobileDevice ? sixteen : twenty,
+                                      ),
+                                    ),
+                                  ),
+                                  Transform.scale(
+                                    scale: isMobileDevice ? one : onePointTwo,
+                                    child: Switch.adaptive(
+                                      value: cubit.isDriverAvailable,
+                                      materialTapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                      activeColor: subColorLogisticColor,
+                                      onChanged: (v) {
+                                        cubit.changeDriverAvailability();
+                                        setState(() {});
+                                        cubit.setDriverAvailability(
+                                            available: cubit.isDriverAvailable);
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              spacesDivider(
+                                sizedBoxSize: isMobileDevice ? twelve : sixteen,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  cubit.getUserDrivingMethods();
+                                  navigateTo(context, DrivingMethodScreen());
+                                },
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      'assets/signUpAssets/car-02.png',
+                                      width:
+                                          isMobileDevice ? thirty : thirtyFour,
+                                      height:
+                                          isMobileDevice ? thirty : thirtyFour,
+                                      fit: BoxFit.cover,
+                                      color: primaryLogisticColor,
+                                    ),
+                                    SizedBox(
+                                      width: isMobileDevice ? ten : fourteen,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        drivingMethod.tr,
+                                        style: TextStyle(
+                                          color: Colors.grey[600],
+                                          fontWeight: FontWeight.bold,
+                                          fontSize:
+                                              isMobileDevice ? sixteen : twenty,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              spacesDivider(
+                                sizedBoxSize: isMobileDevice ? twelve : sixteen,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  cubit.getUserDrivingMethods();
+                                  navigateTo(
+                                      context, DrivingMethodInfoScreen());
+                                },
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      'assets/signUpAssets/speedometer-04.png',
+                                      width:
+                                          isMobileDevice ? thirty : thirtyFour,
+                                      height:
+                                          isMobileDevice ? thirty : thirtyFour,
+                                      fit: BoxFit.cover,
+                                      color: primaryLogisticColor,
+                                    ),
+                                    SizedBox(
+                                      width: isMobileDevice ? ten : fourteen,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        drivingMethodInfo.tr,
+                                        style: TextStyle(
+                                          color: Colors.grey[600],
+                                          fontWeight: FontWeight.bold,
+                                          fontSize:
+                                              isMobileDevice ? sixteen : twenty,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              spacesDivider(
+                                sizedBoxSize: isMobileDevice ? twelve : sixteen,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  cubit.getUserDrivingMethods();
+                                  navigateTo(context, DeliveryDashboard());
+                                },
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      'assets/signUpAssets/car-02.png',
+                                      width:
+                                          isMobileDevice ? thirty : thirtyFour,
+                                      height:
+                                          isMobileDevice ? thirty : thirtyFour,
+                                      fit: BoxFit.cover,
+                                      color: primaryLogisticColor,
+                                    ),
+                                    SizedBox(
+                                      width: isMobileDevice ? ten : fourteen,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        dashBoard.tr,
+                                        style: TextStyle(
+                                          color: Colors.grey[600],
+                                          fontWeight: FontWeight.bold,
+                                          fontSize:
+                                              isMobileDevice ? sixteen : twenty,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-              ),
-            ],
-          ):Column(
-            children: [
-              Spacer(),
-              Container(
-                color: babyGrey,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: isMobileDevice ? ten : sixteen,
-                    vertical: isMobileDevice ? thirty : forty,
-                  ),
-                  child: InkWell(
-                    onTap: () {
-                      accessToken=null;
-                      MyApp.currentUser=null;
-                      CacheHelper.removeData(key: 'token');
-                      navigatePushAndRemoveUntil(context, LoginScreen());
-                    },
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          'assets/logisticAssets/log-out-04.png',
-                          width: isMobileDevice ? thirty : thirtyFour,
-                          height: isMobileDevice ? thirty : thirtyFour,
-                          fit: BoxFit.cover,
-                          color: primaryLogisticColor,
+                    Container(
+                      color: babyGrey,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: isMobileDevice ? ten : sixteen,
+                          vertical: isMobileDevice ? thirty : forty,
                         ),
-                        SizedBox(
-                          width: isMobileDevice ? ten : fourteen,
-                        ),
-                        Expanded(
-                          child: Text(
-                            logout.tr,
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                              fontWeight: FontWeight.bold,
-                              fontSize: isMobileDevice ? sixteen : twenty,
-                            ),
+                        child: InkWell(
+                          onTap: () {
+                            accessToken = null;
+                            MyApp.currentUser = null;
+                            CacheHelper.removeData(key: 'token');
+                            navigatePushAndRemoveUntil(context, LoginScreen());
+                          },
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                'assets/logisticAssets/log-out-04.png',
+                                width: isMobileDevice ? thirty : thirtyFour,
+                                height: isMobileDevice ? thirty : thirtyFour,
+                                fit: BoxFit.cover,
+                                color: primaryLogisticColor,
+                              ),
+                              SizedBox(
+                                width: isMobileDevice ? ten : fourteen,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  logout.tr,
+                                  style: TextStyle(
+                                    color: Colors.grey[600],
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: isMobileDevice ? sixteen : twenty,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
+                )
+              : Column(
+                  children: [
+                    Spacer(),
+                    Container(
+                      color: babyGrey,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: isMobileDevice ? ten : sixteen,
+                          vertical: isMobileDevice ? thirty : forty,
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            accessToken = null;
+                            MyApp.currentUser = null;
+                            CacheHelper.removeData(key: 'token');
+                            navigatePushAndRemoveUntil(context, LoginScreen());
+                          },
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                'assets/logisticAssets/log-out-04.png',
+                                width: isMobileDevice ? thirty : thirtyFour,
+                                height: isMobileDevice ? thirty : thirtyFour,
+                                fit: BoxFit.cover,
+                                color: primaryLogisticColor,
+                              ),
+                              SizedBox(
+                                width: isMobileDevice ? ten : fourteen,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  logout.tr,
+                                  style: TextStyle(
+                                    color: Colors.grey[600],
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: isMobileDevice ? sixteen : twenty,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
         ),
         body: Stack(
           children: [
@@ -614,7 +660,9 @@ class _LogisticsLayoutState extends State<LogisticsLayout> {
             SafeArea(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                    vertical: ten, horizontal: twenty,),
+                  vertical: ten,
+                  horizontal: twenty,
+                ),
                 child: Row(
                   children: [
                     InkWell(
@@ -626,10 +674,14 @@ class _LogisticsLayoutState extends State<LogisticsLayout> {
                         color: babyGrey,
                         elevation: four,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadiusDirectional.circular(fifty,),
+                          borderRadius: BorderRadiusDirectional.circular(
+                            fifty,
+                          ),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.all(isMobileDevice ? eight : ten,),
+                          padding: EdgeInsets.all(
+                            isMobileDevice ? eight : ten,
+                          ),
                           child: Icon(
                             Icons.menu,
                             size: isMobileDevice ? thirty : forty,
@@ -644,7 +696,8 @@ class _LogisticsLayoutState extends State<LogisticsLayout> {
             ),
             Positioned(
               top: 10, // Adjust this value to position the button vertically
-              right: 16, // Adjust this value to position the button horizontally
+              right:
+                  16, // Adjust this value to position the button horizontally
               child: FloatingActionButton(
                 child: Icon(Icons.filter_list),
                 onPressed: () {

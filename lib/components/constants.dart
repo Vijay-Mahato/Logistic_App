@@ -224,9 +224,9 @@ const String feMale = "FeMale";
 
 const String other = "Other";
 
-const String signUpToLogistics = "SignUp to fazeal logistics";
+const String signUpToLogistics = "SignUp to Samajik Rider";
 
-const String loginToLogistics = "Login to fazeal logistics";
+const String loginToLogistics = "Login to Samajik Rider";
 
 const String byClick = "By clicking Sign Up, you agree to our";
 
@@ -250,11 +250,14 @@ const String next = "Next";
 
 const String previousPage = "Previous Page";
 
-const String pleaseUploadYourNationalId = "Please attach a copy of the national identity from front side";
+const String pleaseUploadYourNationalId =
+    "Please attach a copy of the national identity from front side";
 
-const String clickToAttachImageFromCameraOrGallery = "Click To Attach Image From Camera Or Gallery";
+const String clickToAttachImageFromCameraOrGallery =
+    "Click To Attach Image From Camera Or Gallery";
 
-const String pleaseUploadYourLicenseCard = "Please attach a copy of Driving License Card from front side";
+const String pleaseUploadYourLicenseCard =
+    "Please attach a copy of Driving License Card from front side";
 
 const String pleaseUploadYourImage = "Please attach your personal Image";
 
@@ -262,11 +265,11 @@ const String query = "query";
 
 const String files = "files";
 
-const String pleaseAddIdCardImage= "Please add your id card image";
+const String pleaseAddIdCardImage = "Please add your id card image";
 
-const String pleaseLicenseImage= "Please add your license image";
+const String pleaseLicenseImage = "Please add your license image";
 
-const String pleasePersonalPicture= "Please add your personal picture";
+const String pleasePersonalPicture = "Please add your personal picture";
 
 const String addYourVehicle = "Add Your Vehicle";
 
@@ -294,9 +297,7 @@ const String dashBoard = "Dashboard";
 
 const String carColor = "color";
 
-enum CarMethod {
-  ON_FOOT, BICYCLE, CAR, VAN
-}
+enum CarMethod { ON_FOOT, BICYCLE, CAR, VAN }
 
 const String pleaseUploadYourVehicleImage = "Please upload your Vehicle Image";
 
@@ -304,7 +305,8 @@ const String add = "Add";
 
 const String successfullyRegistered = "Successfully Registered";
 
-const String confirmationMessage = "The account creation request has been sent for verification successfully. Upon completion, you will receive an email containing approval and including all details";
+const String confirmationMessage =
+    "The account creation request has been sent for verification successfully. Upon completion, you will receive an email containing approval and including all details";
 
 const String ok = "Ok";
 
@@ -330,6 +332,6 @@ const String newPassword = "New Password";
 
 const String amazonImagePath = 'https://smajik.s3.amazonaws.com';
 
-const String licenseImage= "License Image";
+const String licenseImage = "License Image";
 
-const String drivingImage= "Driving Image";
+const String drivingImage = "Driving Image";

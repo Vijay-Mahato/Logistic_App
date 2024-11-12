@@ -6,7 +6,11 @@ class OrderButton extends StatelessWidget {
   final IconData icon;
   final VoidCallback onTap;
 
-  OrderButton({required this.title, required this.icon, required this.onTap});
+  OrderButton(
+      {required this.title,
+      required this.icon,
+      required this.onTap,
+      required String buttonName});
 
   @override
   Widget build(BuildContext context) {

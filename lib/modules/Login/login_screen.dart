@@ -29,12 +29,14 @@ class LoginScreen extends StatelessWidget {
     // cubit.isRememberMeChecked= CacheHelper.getData(key: 'rememberMe')??false;
     return BlocConsumer<LogisticsCubit, LogisticsStates>(
       listener: (context, state) {
-        if(state is LogisticsLoginSuccessState){
-          if(cubit.isRememberMeChecked){
-            CacheHelper.saveData(key: "userName", value: userNameController.text);
-            CacheHelper.saveData(key: "password", value: passwordController.text);
+        if (state is LogisticsLoginSuccessState) {
+          if (cubit.isRememberMeChecked) {
+            CacheHelper.saveData(
+                key: "userName", value: userNameController.text);
+            CacheHelper.saveData(
+                key: "password", value: passwordController.text);
             CacheHelper.saveData(key: 'rememberMe', value: true);
-          }else{
+          } else {
             CacheHelper.removeData(key: 'userName');
             CacheHelper.removeData(key: 'password');
             CacheHelper.saveData(key: 'rememberMe', value: false);
@@ -42,7 +44,7 @@ class LoginScreen extends StatelessWidget {
           navigatePushAndRemoveUntil(context, LogisticsLayout());
         }
       },
-      builder: (context, state){
+      builder: (context, state) {
         return Scaffold(
           body: Container(
             height: mediaQuery.size.height,
@@ -73,18 +75,31 @@ class LoginScreen extends StatelessWidget {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Image.asset(
-                                'assets/signUpAssets/fazeal_logistic_logo.png',
-                                width: isMobileDevice ? twoHundred : threeHundred,
-                                height:
-                                    isMobileDevice ? oneHundred : oneHundredFifty,
-                                fit: BoxFit.contain,
+                              Container(
+                                height: 100,
+                                width: 150,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            "assets/signUpAssets/samajik_logo.png"),
+                                        fit: BoxFit.cover)),
                               ),
+                              const SizedBox(height: 5),
+                              // Image.asset(
+                              //   'assets/signUpAssets/samajik_logo.png',
+                              //   width:
+                              //       isMobileDevice ? twoHundred : threeHundred,
+                              //   height: isMobileDevice
+                              //       ? oneHundred
+                              //       : oneHundredFifty,
+                              //   fit: BoxFit.contain,
+                              // ),
                               Text(
                                 loginToLogistics.tr,
                                 style: TextStyle(
                                   color: primaryLogisticColor,
-                                  fontSize: isMobileDevice ? twenty : twentyFour,
+                                  fontSize:
+                                      isMobileDevice ? twenty : twentyFour,
                                 ),
                               ),
                               SizedBox(
@@ -94,8 +109,8 @@ class LoginScreen extends StatelessWidget {
                                 controller: userNameController,
                                 isMobileDevice: isMobileDevice,
                                 labelText: userName.tr,
-                                validator: (String? v){
-                                  if(v!.isEmpty){
+                                validator: (String? v) {
+                                  if (v!.isEmpty) {
                                     return userNameRequired.tr;
                                   }
                                 },
@@ -103,10 +118,13 @@ class LoginScreen extends StatelessWidget {
                                   padding: EdgeInsets.all(eight),
                                   child: Image.asset(
                                     'assets/signUpAssets/user-circle.png',
-                                    width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                    height: isMobileDevice ? twentyTwo : thirtyTwo,
+                                    width:
+                                        isMobileDevice ? twentyTwo : thirtyTwo,
+                                    height:
+                                        isMobileDevice ? twentyTwo : thirtyTwo,
                                     fit: BoxFit.contain,
-                                    color: primaryLogisticColor.withOpacity(0.5),
+                                    color:
+                                        primaryLogisticColor.withOpacity(0.5),
                                   ),
                                 ),
                               ),
@@ -118,8 +136,8 @@ class LoginScreen extends StatelessWidget {
                                 isMobileDevice: isMobileDevice,
                                 labelText: password.tr,
                                 obscureText: !cubit.passwordVisible,
-                                validator: (String? v){
-                                  if(v!.isEmpty){
+                                validator: (String? v) {
+                                  if (v!.isEmpty) {
                                     return passwordRequired.tr;
                                   }
                                 },
@@ -127,44 +145,66 @@ class LoginScreen extends StatelessWidget {
                                   onTap: cubit.changeVisibilityPassword,
                                   child: Padding(
                                     padding: EdgeInsets.all(eight),
-                                    child: cubit.passwordVisible? Image.asset(
-                                      'assets/signUpAssets/eye.png',
-                                      width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                      height: isMobileDevice ? twentyTwo : thirtyTwo,
-                                      fit: BoxFit.contain,
-                                      color: primaryLogisticColor.withOpacity(0.5),
-                                    ):Image.asset(
-                                      'assets/signUpAssets/eye-off.png',
-                                      width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                      height: isMobileDevice ? twentyTwo : thirtyTwo,
-                                      fit: BoxFit.contain,
-                                      color: primaryLogisticColor.withOpacity(0.5),
-                                  ),
+                                    child: cubit.passwordVisible
+                                        ? Image.asset(
+                                            'assets/signUpAssets/eye.png',
+                                            width: isMobileDevice
+                                                ? twentyTwo
+                                                : thirtyTwo,
+                                            height: isMobileDevice
+                                                ? twentyTwo
+                                                : thirtyTwo,
+                                            fit: BoxFit.contain,
+                                            color: primaryLogisticColor
+                                                .withOpacity(0.5),
+                                          )
+                                        : Image.asset(
+                                            'assets/signUpAssets/eye-off.png',
+                                            width: isMobileDevice
+                                                ? twentyTwo
+                                                : thirtyTwo,
+                                            height: isMobileDevice
+                                                ? twentyTwo
+                                                : thirtyTwo,
+                                            fit: BoxFit.contain,
+                                            color: primaryLogisticColor
+                                                .withOpacity(0.5),
+                                          ),
                                   ),
                                 ),
                                 prefixIcon: Padding(
                                   padding: EdgeInsets.all(eight),
                                   child: Image.asset(
                                     'assets/signUpAssets/lock-keyhole-circle.png',
-                                    width: isMobileDevice ? twentyTwo : thirtyTwo,
-                                    height: isMobileDevice ? twentyTwo : thirtyTwo,
+                                    width:
+                                        isMobileDevice ? twentyTwo : thirtyTwo,
+                                    height:
+                                        isMobileDevice ? twentyTwo : thirtyTwo,
                                     fit: BoxFit.contain,
-                                    color: primaryLogisticColor.withOpacity(0.5),
+                                    color:
+                                        primaryLogisticColor.withOpacity(0.5),
                                   ),
                                 ),
                               ),
                               SizedBox(
                                 height: isMobileDevice ? ten : sixteen,
                               ),
-                              state is LogisticsLoginLoadingState? Center(child: AdaptiveIndicator(os: getOS()),) : logisticButton(
-                                isMobileDevice: isMobileDevice,
-                                onPressed: () {
-                                  if(loginKey.currentState!.validate()){
-                                    cubit.loginUser(userName: userNameController.text, password: passwordController.text);
-                                  }
-                                },
-                                buttonTitle: login.tr,
-                              ),
+                              state is LogisticsLoginLoadingState
+                                  ? Center(
+                                      child: AdaptiveIndicator(os: getOS()),
+                                    )
+                                  : logisticButton(
+                                      isMobileDevice: isMobileDevice,
+                                      onPressed: () {
+                                        if (loginKey.currentState!.validate()) {
+                                          cubit.loginUser(
+                                              userName: userNameController.text,
+                                              password:
+                                                  passwordController.text);
+                                        }
+                                      },
+                                      buttonTitle: login.tr,
+                                    ),
                               SizedBox(
                                 height: isMobileDevice ? sixteen : twenty,
                               ),
@@ -178,8 +218,9 @@ class LoginScreen extends StatelessWidget {
                                       textAlign: TextAlign.right,
                                       style: TextStyle(
                                         color: Colors.grey,
-                                        fontSize:
-                                            isMobileDevice ? fourteen : twentyFour,
+                                        fontSize: isMobileDevice
+                                            ? fourteen
+                                            : twentyFour,
                                       ),
                                     ),
                                   ),
@@ -197,8 +238,9 @@ class LoginScreen extends StatelessWidget {
                                         signUp.tr,
                                         style: TextStyle(
                                           color: primaryLogisticColor,
-                                          fontSize:
-                                              isMobileDevice ? fourteen : twentyFour,
+                                          fontSize: isMobileDevice
+                                              ? fourteen
+                                              : twentyFour,
                                         ),
                                       ),
                                     ),
@@ -211,8 +253,9 @@ class LoginScreen extends StatelessWidget {
                               Row(
                                 children: [
                                   Transform.scale(
-                                    scale:
-                                        isMobileDevice ? onePointOne : onePointTwo,
+                                    scale: isMobileDevice
+                                        ? onePointOne
+                                        : onePointTwo,
                                     child: Checkbox(
                                       value: cubit.isRememberMeChecked,
                                       materialTapTargetSize:
@@ -229,8 +272,9 @@ class LoginScreen extends StatelessWidget {
                                       rememberMe.tr,
                                       style: TextStyle(
                                         color: Colors.grey,
-                                        fontSize:
-                                            isMobileDevice ? fourteen : twentyFour,
+                                        fontSize: isMobileDevice
+                                            ? fourteen
+                                            : twentyFour,
                                       ),
                                     ),
                                   ),
@@ -243,8 +287,9 @@ class LoginScreen extends StatelessWidget {
                                       textAlign: TextAlign.right,
                                       style: TextStyle(
                                         color: primaryLogisticColor,
-                                        fontSize:
-                                            isMobileDevice ? fourteen : twentyFour,
+                                        fontSize: isMobileDevice
+                                            ? fourteen
+                                            : twentyFour,
                                       ),
                                     ),
                                   ),
